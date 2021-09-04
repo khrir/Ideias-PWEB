@@ -9,13 +9,14 @@ a{
     text-decoration: none;
 }
   
-.conj-header{
+.center{
     display: flex;
     max-width: 1100px;
     align-items: center;
     flex-wrap: wrap;
     margin: 0 auto;
     padding: 0 2%;
+    flex-wrap: wrap;
 }
   
 .menu{
@@ -24,13 +25,13 @@ a{
 }
   
 .menu a{
-    color: #ff0000;
+    color:rgba(124, 1, 1, 0.829);
     font-size: 16px;
-    margin-right: 30px;
+    margin-right: 20px;
 }
   
 .menu a:hover{
-    color: #ff6666;
+    color: #fc0202;
 }
   
 header{
@@ -41,4 +42,61 @@ header{
 .logo{
     color: white;
     font-size: 18px;
+}
+
+.container{
+    background-image: url('https://wallpapertag.com/wallpaper/full/f/7/7/500608-widescreen-dark-side-of-the-moon-wallpaper-1920x1080-1080p.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    padding: 50px 0;
+}
+
+.title{
+    width: 100%;
+    text-align: center;
+    margin: 30px 0;
+}
+
+.title h2{
+    color: rgba(124, 1, 1, 0.829);
+    font-size: 40px;
+}
+
+.title p{
+    color: gray;
+    font-size: 20px;
+    margin: 10px 0;
+}
+
+.packet{
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap;
+}
+
+.obj{
+    background: #1d1e20;
+    width: 23%;
+    margin-right: 2%;
+    padding: 50px 20px;
+    border-radius: 5%;
+}
+
+.obj p{
+    color: gray;
+    margin: 10px 0;
+    line-height: 30px;
+}
+
+.obj h2{
+    color:rgba(124, 1, 1, 0.829);
+}
+
+@media screen and (max-width: 768px){
+    .obj{
+        width: 100%;
+        margin-bottom: 20px;
+    }
 }
