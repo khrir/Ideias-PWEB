@@ -13,14 +13,16 @@
           <h2>Khrir</h2>
         </div><!--logo-->
         <div class="menu">
-          <a href="#">Home</a>
+          <a href="#" class="active">Home</a>
           <a href="#">About</a>
+          <a href="#">Work</a>
           <a href="#">Contact</a>
         </div><!--menu-->
       </div><!--center-->
     </header>
 
     <div class="container">
+      <img id="fundo" src="http://www.pngmart.com/files/3/Vector-PNG-Transparent-Image.png">
       <div class="center">
         <div class="title">
           <h2>Layout de teste</h2>
@@ -31,18 +33,24 @@
             <h2>Verso 1</h2>
             <p>Tell me if you need me</p>
           </div>
+        </div>
+        <div class="packet">
           <div class="obj">
             <h2>Verso 2</h2>
             <p>And call me if you feelin' alone</p>
           </div>
+        </div>
+        <div class="packet">
           <div class="obj">
             <h2>Verso 3</h2>
             <p>'Cause I'm here</p>
           </div>
+        </div>
+        <div class="packet">
           <div class="obj">
             <h2>Verso 4</h2>
             <p>I'm always right here</p>
-          </div>
+          </div><!--obj-->
         </div><!--packet-->
       </div><!--center-->
     </div><!--container-->
@@ -58,5 +66,14 @@
       </div>
     </div>
     <script src="script.js"></script>
+    <script type="text/javascript" src="vanilla-tilt.js"></script>
+     <script type="text/javascript">
+				VanillaTilt.init(document.querySelectorAll(".packet"), {
+					max: 25,
+					speed: 400,
+          glare: true,
+          "max-glare": 1,
+				});
+     </script>
   </body>
 </html>
