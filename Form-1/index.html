@@ -1,0 +1,46 @@
+<html>
+    <head>
+        <title>Questao</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <form id="form" method="post" action="#">
+            <h2>Cadastro de pets</h2>
+
+            <div class="input">
+                <input id="nome" type="text" required maxlength="50">
+                <label>Nome</label>
+            </div><!--Nome-->
+      
+            <div class="input">
+                <input id="breed" type="text" required maxlength="20">
+                <label>Raça</label>
+            </div><!--Raça-->
+      
+            <div class="input">
+                <input id="idade" type="number" required maxlength="2">
+                <label>Idade</label>
+            </div><!--Idade-->
+      
+            <div class="input">
+                <input id="categoria" type="text" required maxlength="20">
+                <label>Categoria</label>
+            </div><!--Categora-->
+      
+            <button type="submit" onclick="cadastro.armazenar()" id="btn">Enviar</button>
+        </form>
+        <div class="section">
+            <table>
+                <thead>
+                    <th>ID</th>
+                    <th>Nome</th>
+                    <th>Raça</th>
+                    <th>Idade</th>
+                    <th>Categoria</th>
+                </thead>
+                <tbody id="tbody"></tbody>
+            </table>
+        </div>
+        <script src="script.js"></script>
+    </body>
+</html>
