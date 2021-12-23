@@ -1,6 +1,6 @@
-const url_categoria_economica = '../database/Despesas_CE.csv';
-const url_favorecido = '/database/Despesas_PF.csv';
-const url_municipio = '../database/Repasses_M.csv';
+const url_categoria_economica = 'https://raw.githubusercontent.com/khrir/Ideias-PWEB/main/Dashboard/database/Despesas_CE.csv';
+const url_favorecido = 'https://raw.githubusercontent.com/khrir/Ideias-PWEB/main/Dashboard/database/Despesas_PF.csv';
+const url_municipio = 'https://raw.githubusercontent.com/khrir/Ideias-PWEB/main/Dashboard/database/Repasses_M.csv';
 
 
 
@@ -15,7 +15,7 @@ async function getData(url){
     let header = arrayOne[0].split(",");
     let noOfRow = arrayOne.length;
     let noOfCol = header.length;
-    let jsonData = [];
+    var jsonData = [];
     
     // loop (rows)
     for(let i = 1; i < noOfRow - 1; i++){
@@ -28,8 +28,12 @@ async function getData(url){
         // generate json
         jsonData.push(obj)
     }
-    jsonString = JSON.stringify(jsonData);
+    // var jsonString = JSON.stringify(jsonData);
+    return jsonData;
+}
 
+function mkTable(url){
+    getData(url)
     // Initialize
     let children = jsonData;
     let table = document.createElement("table");
@@ -57,8 +61,46 @@ async function getData(url){
     }
     
     // publish table
-    document.getElementById('content-local').appendChild(table);
+    document.querySelector('#content-local').appendChild(table);
 }
 
-getData(url_favorecido);
+const xlabel = [];
+const ylabel = [];
+
+async function chartIt(url){
+    await getDados(url);
+
+    const ctx = document.getElementById('myChart');
+    const myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: xlabel,
+            datasets: [{
+                label: 'Valor',
+                data: ylabel,
+                backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                borderColor: 'rbga(255, 99, 132, 1',
+                borderWidth: 1,
+            }]
+        }
+    })
+}
+
+async function getDados(url){
+    let response = await fetch(url);
+    let data = await response.text();
+
+    let table = data.split('\n').slice(1);
+    table.forEach(row => {
+        let columns = row.split(',');
+        let custeio = columns[0];
+        xlabel.push(parseFloat(custeio));
+        let secretaria = columns[12];
+        ylabel.push(secretaria);
+        console.log(custeio, secretaria);
+    });
+}
+
+
+
 
