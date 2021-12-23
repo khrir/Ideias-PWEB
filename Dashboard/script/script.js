@@ -82,6 +82,9 @@ async function chartIt(url){
                 borderColor: 'rbga(255, 99, 132, 1',
                 borderWidth: 1,
             }]
+        },
+        options: {
+            responsive: true,
         }
     })
 }
@@ -94,9 +97,9 @@ async function getDados(url){
     table.forEach(row => {
         let columns = row.split(',');
         let custeio = columns[0];
-        xlabel.push(parseFloat(custeio));
-        let secretaria = columns[12];
-        ylabel.push(secretaria);
+        let secretaria = columns[1];
+        xlabel.push(secretaria);
+        ylabel.push(parseFloat(custeio));
         console.log(custeio, secretaria);
     });
 }
