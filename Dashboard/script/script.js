@@ -2,70 +2,64 @@ const url_categoria_economica = 'https://raw.githubusercontent.com/khrir/Ideias-
 const url_favorecido = 'https://raw.githubusercontent.com/khrir/Ideias-PWEB/main/Dashboard/database/Despesas_PF.csv';
 const url_municipio = 'https://raw.githubusercontent.com/khrir/Ideias-PWEB/main/Dashboard/database/Repasses_M.csv';
 
+async function test(url){
+    fetch(url).then(function(response){return response.text();
+    }).then(function(data){ 
+        var table = document.getElementById('content');
+        convert(data, table);
+    });
 
-
-async function getData(url){
-    // fetch data
-    const response = await fetch(url);
-    // process data
-    const rawData = await response.text();
-
-    // convert to json
-    let arrayOne = rawData.split("\r\n");
-    let header = arrayOne[0].split(",");
-    let noOfRow = arrayOne.length;
-    let noOfCol = header.length;
-    var jsonData = [];
+    function convert(csv, element) {
+        var rows = csv.trim().split(/\r?\n|\r/); // Regex to split/separate the CSV rows
+        var table = '';
+        var table_rows = '';
+        var table_header = '';
     
-    // loop (rows)
-    for(let i = 1; i < noOfRow - 1; i++){
-        let obj = {};
-        let newLine = arrayOne[i].split(",");
-        // loop (column)
-        for(let j = 0; j < noOfCol; j++){
-            obj[header[j]] = newLine[j];
-        }
-        // generate json
-        jsonData.push(obj)
-    }
-    // var jsonString = JSON.stringify(jsonData);
-    return jsonData;
-}
+        rows.forEach(function(row, row_index) {
+            let table_col = '';
+            let columns = row.split(','); // split/separate the columns in a row
 
-function mkTable(url){
-    getData(url)
-    // Initialize
-    let children = jsonData;
-    let table = document.createElement("table");
-
-    // function to generate table header row
-    function addHeader(table, keys){
-        let row = table.insertRow();
-        for (let i = 0; i < keys.length; i++){
-            let cell = row.insertRow();
-            cell.appendChild(document.createTextNode(keys[i]));
-        }
-    }
-
-    // generate table
-    for(let i = 0; i < children.length; i++){
-        let child = children[i];
-        if(i === 0){
-            addHeader(table, Object.keys(child));
-        }
-        let row = table.insertRow();
-        Object.keys(child).forEach(k => {
-            let cell = row.insertCell();
-            cell.appendChild(document.createTextNode(child[k]));
+            columns.forEach(column => {
+                table_col += row_index == 0 ? '<th>' + column + '</th>' : '<td>' + column + '</td>';
+            });
+            if (row_index == 0) {
+                table_header += '<tr>' + table_col + '</tr>';
+            } else {
+                table_rows += '<tr>' + table_col + '</tr>';
+            }
         });
-    }
     
-    // publish table
-    document.querySelector('#content-local').appendChild(table);
+        table += '<table>';
+            table += '<thead>';
+                table += table_header;
+            table += '</thead>';
+            table += '<tbody>';
+                table += table_rows;
+            table += '</tbody>';
+        table += '</table>';
+    
+        element.innerHTML += table;
+    }
 }
+
 
 const xlabel = [];
 const ylabel = [];
+
+async function getDados(url){
+    let response = await fetch(url);
+    let data = await response.text();
+
+    let table = data.split('\n').slice(1);
+    table.forEach(row => {
+        let columns = row.split(',');
+        let custeio = columns[0];
+        let secretaria = columns[1];
+        xlabel.push(secretaria);
+        ylabel.push(parseFloat(custeio));
+        console.log(custeio, secretaria);
+    });
+}
 
 async function chartIt(url){
     await getDados(url);
@@ -88,22 +82,6 @@ async function chartIt(url){
         }
     })
 }
-
-async function getDados(url){
-    let response = await fetch(url);
-    let data = await response.text();
-
-    let table = data.split('\n').slice(1);
-    table.forEach(row => {
-        let columns = row.split(',');
-        let custeio = columns[0];
-        let secretaria = columns[1];
-        xlabel.push(secretaria);
-        ylabel.push(parseFloat(custeio));
-        console.log(custeio, secretaria);
-    });
-}
-
 
 
 
